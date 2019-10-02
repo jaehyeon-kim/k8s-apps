@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  shinyproxy:
+    image: openjdk:8-jre
+    container_name: shinyproxy
+    command: ["java", "-jar", "/opt/shinyproxy/shinyproxy-2.3.0.jar"]
+    working_dir: /opt/shinyproxy/
+    networks:
+      - shinyproxy-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/opt/shinyproxy
+    ports:
+      - 8080:8080
+    restart: always
+
+networks:
+  shinyproxy-net:
+    name: shinyproxy-network
